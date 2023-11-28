@@ -4,33 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
         android:id="@+id/Search_and_Header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <include layout="@layout/header"/>
+
+        <include layout="@layout/header" />
 
     </LinearLayout>
 
+
     <androidx.viewpager2.widget.ViewPager2
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/ViewPager"
-        android:background="#686868"
-        android:layout_below="@id/Search_and_Header"
-        android:layout_above="@id/Navbar">
-
-    </androidx.viewpager2.widget.ViewPager2>
-
-    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Navbar"
-        android:focusedByDefault="true"
-        android:layout_alignParentBottom="true"/>
+        android:layout_below="@id/Search_and_Header"
 
+    android:background="#CCCCCC">
 
+</androidx.viewpager2.widget.ViewPager2>
 
-</RelativeLayout>
+<com.etebarian.meowbottomnavigation.MeowBottomNavigation
+android:id="@+id/Navbar"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:background="#00FFFFFF"
+android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>

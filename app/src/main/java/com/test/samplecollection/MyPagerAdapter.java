@@ -25,9 +25,9 @@ public class MyPagerAdapter extends FragmentStateAdapter {
             case 0:
                 return new SearchFragment();
             case 1:
-                return new UserFragment();
-            default:
                 return new HomeFragment(); // Return a default fragment if needed
+            default:
+                return new UserFragment();
         }
     }
 
