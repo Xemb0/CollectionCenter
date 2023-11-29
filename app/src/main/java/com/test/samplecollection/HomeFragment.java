@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -18,8 +19,13 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-public class HomeFragment extends Fragment {
+
+public class HomeFragment extends Fragment implements CitySelectListener {
     private ViewPager2 viewPager;
     private ArrayList<Integer> imageList;
     private ConstraintLayout root;
@@ -46,6 +52,10 @@ public class HomeFragment extends Fragment {
     // Linear Layout Manager
     LinearLayoutManager HorizontalLayout;
 
+    Button cityselectbutton;
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -54,6 +64,7 @@ public class HomeFragment extends Fragment {
 
         // initialisation with id's
         recyclerView = view.findViewById(R.id.recyclerview);
+        cityselectbutton = view.findViewById(R.id.select_city);
         RecyclerViewLayoutManager = new LinearLayoutManager(requireContext());
 
         // Set LayoutManager on Recycler View
@@ -87,6 +98,18 @@ public class HomeFragment extends Fragment {
                 handler.postDelayed(runnable, 2000);
             }
         });
+
+        cityselectbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CitySelectBottomSheet bottomSheetFragment = new CitySelectBottomSheet(HomeFragment.this);
+                bottomSheetFragment.show(requireActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
+            }
+        });
+
+
+
+
 
         return view;
     }
@@ -174,6 +197,8 @@ public class HomeFragment extends Fragment {
         }
     }
 
+
+
     public void AddItemsToRecyclerViewArrayList()
     {
         // Adding items to ArrayList
@@ -185,6 +210,13 @@ public class HomeFragment extends Fragment {
         source.add("for");
         source.add("interview");
         source.add("preparation");
+    }
+
+    @Override
+    public void onCitySelected(String selectedCity) {
+        // Handle the selected city here
+        // For example, update the UI with the selected city
+        cityselectbutton.setText(selectedCity);
     }
 
     // ... (Add the rest of your code)

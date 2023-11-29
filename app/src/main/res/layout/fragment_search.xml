@@ -11,6 +11,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/Searcht"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <include layout="@layout/header" />
+
+        </LinearLayout>
+
         <!-- Filter Section -->
         <LinearLayout
             android:layout_width="wrap_content"
