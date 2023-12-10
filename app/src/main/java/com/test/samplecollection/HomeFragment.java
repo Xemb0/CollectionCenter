@@ -1,5 +1,6 @@
 package com.test.samplecollection;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -29,14 +31,11 @@ public class HomeFragment extends Fragment implements CitySelectListener {
     private ViewPager2 viewPager;
     private ArrayList<Integer> imageList;
     private ConstraintLayout root;
-
     private ImageSlider imageSlider;
     private Handler handler;
-
     private RecyclerView HorizontalRv;
     private LinearLayoutManager linearLayoutManager;
     private HorizontallAdaptor horizontallAdaptor;
-
     // Recycler View object
     RecyclerView recyclerView;
 
@@ -51,8 +50,8 @@ public class HomeFragment extends Fragment implements CitySelectListener {
 
     // Linear Layout Manager
     LinearLayoutManager HorizontalLayout;
-
     Button cityselectbutton;
+     ImageButton userButton;
 
 
 
@@ -106,6 +105,17 @@ public class HomeFragment extends Fragment implements CitySelectListener {
                 bottomSheetFragment.show(requireActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
             }
         });
+
+        userButton = view.findViewById(R.id.userButton);
+        userButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Login.class);
+                startActivity(intent);
+            }
+        });
+
+
 
 
 

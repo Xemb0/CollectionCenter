@@ -20,7 +20,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:foregroundGravity="center_horizontal"
-                android:src="@drawable/ic_user_nav"
+                android:src="@drawable/ic_user_color_icon"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:background="@drawable/circular_background"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,9 +56,16 @@
                 android:layout_width="@dimen/_130sdp"
                 android:layout_height="@dimen/_60sdp"
                 android:layout_gravity="center"
-                app:cardBackgroundColor="@color/black"
+                android:background="@color/white"
                 android:layout_margin="@dimen/_10sdp"
+                android:elevation="@dimen/_15sdp"
                 app:cardCornerRadius="@dimen/_5sdp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/shopping_cart_icon"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
 
             </androidx.cardview.widget.CardView>
 
@@ -62,8 +73,16 @@
                 android:layout_width="@dimen/_130sdp"
                 android:layout_margin="@dimen/_10sdp"
                 android:layout_height="@dimen/_60sdp"
-                app:cardBackgroundColor="@color/black"
+                android:background="@color/white"
+                android:elevation="@dimen/_15sdp"
                 app:cardCornerRadius="@dimen/_5sdp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/file_download_icon"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
 
 
             </androidx.cardview.widget.CardView>

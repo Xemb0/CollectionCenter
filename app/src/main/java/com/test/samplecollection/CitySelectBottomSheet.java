@@ -35,9 +35,12 @@ public class CitySelectBottomSheet extends BottomSheetDialogFragment {
 
         // Create a list of cities (replace with your actual city data)
         List<String> cityList = new ArrayList<>();
-        cityList.add("City 1");
-        cityList.add("City 2");
-        cityList.add("City 3");
+        cityList.add("Rishikesh");
+        cityList.add("Haridwar");
+        cityList.add("Dehradun");
+        cityList.add("Shyampur");
+        cityList.add("Gumaniwala");
+        cityList.add("Doiwala");
         // ... add more cities
 
         // Create an ArrayAdapter and set it to the ListView
