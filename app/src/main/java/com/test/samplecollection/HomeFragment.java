@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -20,16 +21,17 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+
+import com.test.samplecollection.kotlin.Login;
+
 import java.util.ArrayList;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 
 public class HomeFragment extends Fragment implements CitySelectListener {
     private ViewPager2 viewPager;
     private ArrayList<Integer> imageList;
+
+
     private ConstraintLayout root;
     private ImageSlider imageSlider;
     private Handler handler;
@@ -111,7 +113,7 @@ public class HomeFragment extends Fragment implements CitySelectListener {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Login.class);
-                startActivity(intent);
+                requireContext().startActivity(intent);
             }
         });
 
