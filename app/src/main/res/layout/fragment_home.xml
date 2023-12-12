@@ -20,7 +20,7 @@
       android:layout_height="wrap_content"
       android:orientation="horizontal">
 
-   <include layout="@layout/header" />
+   <include layout="@layout/header"/>
   </LinearLayout>
   <!-- ViewPager2 for image scrolling -->
   <androidx.viewpager2.widget.ViewPager2

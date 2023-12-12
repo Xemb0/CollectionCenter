@@ -23,8 +23,8 @@
             android:layout_width="match_parent"
 
             android:layout_height="wrap_content"
-            android:layout_above="@id/Other_login_icons"
             android:orientation="vertical">
+
 
             <ImageView
                 android:layout_width="match_parent"
@@ -45,14 +45,12 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:id="@+id/Other_login_icons"
-            android:layout_above="@+id/bottomsheet_shell"
-            android:translationY="@dimen/_50sdp"
+            android:layout_above="@+id/bt_sign_in"
             android:gravity="center">
 
             <ImageButton
@@ -70,6 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_margin="@dimen/_10sdp"
                 android:src="@drawable/ic_phone"
+                android:id="@+id/phone_icon"
                 android:background="#00FFFFFF"
                 android:layout_height="wrap_content"/>
             <ImageButton
@@ -82,6 +81,15 @@
 
 
         </LinearLayout>
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/bt_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/bottomsheet_shell"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            />
+
+
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:id="@+id/bottomsheet_shell"

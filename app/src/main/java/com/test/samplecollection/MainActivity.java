@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 // Update the selected tab in MeowBottomNavigation
+
                 bottomNavigation.show(position, true);
             }
         });
@@ -90,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the initial tab
         viewPager.setCurrentItem(1, false);
-
         bottomNavigation.setOnClickMenuListener(model -> {
             // Handle tab selection
             viewPager.setCurrentItem(model.getId(), false);

@@ -1,6 +1,7 @@
 package com.test.samplecollection;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -22,7 +24,10 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 
-import com.test.samplecollection.kotlin.Login;
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.test.samplecollection.kotlin.LoginActivity;
 
 import java.util.ArrayList;
 
@@ -53,7 +58,10 @@ public class HomeFragment extends Fragment implements CitySelectListener {
     // Linear Layout Manager
     LinearLayoutManager HorizontalLayout;
     Button cityselectbutton;
-     ImageButton userButton;
+     ImageView userButton;
+
+    FirebaseAuth firebaseAuth;
+    ImageView  ivImage;
 
 
 
@@ -109,13 +117,40 @@ public class HomeFragment extends Fragment implements CitySelectListener {
         });
 
         userButton = view.findViewById(R.id.userButton);
-        userButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Login.class);
-                requireContext().startActivity(intent);
-            }
-        });
+
+
+        // Initialize Firebase Auth
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        if (firebaseUser != null) {
+            // Load user's photo into an ImageView in a circular shape
+
+                Glide.with(this)
+                        .load(firebaseUser.getPhotoUrl())
+                        .circleCrop() // Apply circular crop transformation
+                        .into(userButton);
+
+
+            userButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), "yess", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }else
+        {
+            userButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    requireContext().startActivity(intent);
+                }
+            });
+
+        }
+
 
 
 
@@ -230,6 +265,11 @@ public class HomeFragment extends Fragment implements CitySelectListener {
         // For example, update the UI with the selected city
         cityselectbutton.setText(selectedCity);
     }
+
+
+
+    // Method to load user's photo into ImageView
+
 
     // ... (Add the rest of your code)
 }
