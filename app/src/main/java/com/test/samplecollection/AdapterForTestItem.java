@@ -4,9 +4,11 @@ import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -29,18 +31,11 @@ public class AdapterForTestItem extends RecyclerView.Adapter<AdapterForTestItem.
         notifyDataSetChanged();
     }
 
-
-
-
-
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.test_item, parent, false);
         return new ViewHolder(view);
     }
-
-
 
     @Override
     public int getItemCount() {
@@ -52,10 +47,6 @@ public class AdapterForTestItem extends RecyclerView.Adapter<AdapterForTestItem.
         Test currentTest = filteredList != null ? filteredList.get(position) : tests.get(position);
         holder.bind(currentTest);
     }
-
-
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewName;
@@ -111,6 +102,20 @@ public class AdapterForTestItem extends RecyclerView.Adapter<AdapterForTestItem.
             Inclusions= test.getInclusions();
             totalInclusion = Inclusion + Inclusions + testInclusion;
             textViewInclusion.setText(totalInclusion);
+
+
+
+            itemView.findViewById(R.id.btn_add_to_cart).setOnClickListener(v -> {
+                if (test.isAddedToCart()) {
+                    test.setAddedToCart(false);
+                    // Update UI for deselection
+                    v.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.my_tag_deselect));
+                } else {
+                    test.setAddedToCart(true);
+                    // Update UI for selection
+                    v.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.my_tag_select));
+                }
+            });
         }
     }
 }

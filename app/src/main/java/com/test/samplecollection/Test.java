@@ -55,4 +55,14 @@ public class Test {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    private boolean addedToCart;
+
+    public boolean isAddedToCart() {
+        return addedToCart;
+    }
+
+    public void setAddedToCart(boolean addedToCart) {
+        this.addedToCart = addedToCart;
+    }
 }

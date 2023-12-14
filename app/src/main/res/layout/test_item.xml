@@ -101,6 +101,7 @@ and can help diagnose hypothyroidism or hyperthyroidism."/>
 
                     android:layout_width="0dp"
                     android:layout_weight="2"
+                    android:id="@+id/btn_add_to_cart"
                     android:layout_height="wrap_content"
                     android:text="ADD TO CART"/>
 
