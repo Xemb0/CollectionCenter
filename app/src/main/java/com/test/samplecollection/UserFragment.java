@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.test.samplecollection.R;
+import com.test.samplecollection.kotlin.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -36,12 +37,28 @@ public class UserFragment extends Fragment {
         // Initialize Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        TextView loginbtn = view.findViewById(R.id.btnLogout);
 
         if (firebaseUser != null) {
-            // Load user's photo into an ImageView in the fragment's layout
             String userDisplayName = firebaseUser.getDisplayName();
-            loadUserPhoto(view, firebaseUser.getPhotoUrl(),userDisplayName);
+            loadUserPhoto(view, firebaseUser.getPhotoUrl(), userDisplayName);
 
+            loginbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Sign out the user
+                    firebaseAuth.signOut();
+                    Toast.makeText(getActivity(), "Logged out", Toast.LENGTH_SHORT).show();
+                    navigateToLogin();
+                }
+            });
+        } else {
+            loginbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateToLogin();
+                }
+            });
         }
 
         // Find the ListView in your fragment_user layout
@@ -73,22 +90,20 @@ public class UserFragment extends Fragment {
     // Method to load user's photo into ImageView
     private void loadUserPhoto(View view, Uri photoUrl, String displayName) {
         ImageView ivImage = view.findViewById(R.id.ivProfilePhoto); // Replace with your ImageView ID
+        TextView logoutbtn = view.findViewById(R.id.btnLogout);
         Glide.with(this)
                 .load(photoUrl)
                 .circleCrop() // Apply circular crop transformation
                 .into(ivImage);
         TextView name = view.findViewById(R.id.tvName);
         name.setText(displayName);
-
+        logoutbtn.setText("Logout");
     }
 
-    // Add this method to handle the user's login event
-    public void handleUserLogin() {
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-
-        if (firebaseUser != null) {
-            // Load user's photo after successful login
-            loadUserPhoto(getView(), firebaseUser.getPhotoUrl(),firebaseUser.getDisplayName());
-        }
+    // Method to navigate to LoginActivity
+    private void navigateToLogin() {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        requireContext().startActivity(intent);
+       // Finish the current activity after navigating to login
     }
 }

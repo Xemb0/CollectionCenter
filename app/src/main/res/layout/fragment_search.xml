@@ -43,60 +43,43 @@
                         android:layout_width="100dp"
                         android:layout_margin="5dp"
                         android:id="@+id/tag1"
+                        android:text="Thyroid"
                         android:layout_height="40dp"/>
                     <Button
                         android:layout_width="100dp"
                         android:layout_margin="5dp"
+                        android:text="T3"
                         android:id="@+id/tag2"
                         android:layout_height="40dp"/>
                     <Button
                         android:layout_width="100dp"
+                        android:text="TSH"
                         android:layout_margin="5dp"
                         android:id="@+id/tag3"
                         android:layout_height="40dp"/>
                     <Button
                         android:layout_width="100dp"
+                        android:text="@+id/Heart"
                         android:layout_margin="5dp"
+
                         android:id="@+id/tag4"
                         android:layout_height="40dp"/>
                     <Button
                         android:layout_width="100dp"
+                        android:text="@+id/Lungs"
                         android:layout_margin="5dp"
                         android:id="@+id/tag5"
                         android:layout_height="40dp"/>
                 </LinearLayout>
-
    </HorizontalScrollView>
             </LinearLayout>
 
-        <!-- CardViews -->
-        <androidx.cardview.widget.CardView
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/test_1"
-            android:layout_margin="15dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/recycler_list_items">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/test_2"
-            android:layout_margin="15dp"/>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/test_3"
-            android:layout_margin="15dp"/>
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/test_4"
-            android:layout_margin="15dp"/>
-
-        <!-- ExpandableListView -->
-        <ExpandableListView
-            android:id="@+id/expandableListView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 </ScrollView>
