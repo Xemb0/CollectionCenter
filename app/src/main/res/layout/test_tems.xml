@@ -57,6 +57,7 @@ and can help diagnose hypothyroidism or hyperthyroidism."
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent"
+            android:alpha="0.5"
             app:layout_constraintTop_toBottomOf="@+id/test_inclusions"
             app:layout_constraintVertical_bias="0.1" />
 

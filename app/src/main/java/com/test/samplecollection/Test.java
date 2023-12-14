@@ -1,22 +1,25 @@
 package com.test.samplecollection;
 
 public class Test {
-    private  Double mrp;
-    private String inclusions;
+    private  int mrp;
+    private int inclusions;
     private String name;
-    private double price;
+    private int price;
     private String description;
+
+    private String tag;
 
     public Test() {
         // Default constructor required for Firestore
     }
 
-    public Test(String name, double price, String description,Double mrp,String inclusions) {
+    public Test(String name, int price, String description,int mrp,int inclusions,String tag) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.mrp = mrp;
         this.inclusions = inclusions;
+        this.tag = tag;
     }
 
     // Getters and setters for each field
@@ -28,22 +31,25 @@ public class Test {
         this.name = name;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
     public String getDescription() {
         return description;
     }
-    public String getInclusions(){
+    public int getInclusions(){
         return inclusions;
     }
-    public Double getMrp(){
+    public int getMrp(){
         return  mrp;
+    }
+    public String getTag(){
+        return tag;
     }
 
     public void setDescription(String description) {

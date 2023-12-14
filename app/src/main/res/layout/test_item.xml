@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_margin="@dimen/_5sdp"
+        android:background="#FFFFFF"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="@dimen/_10sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="#00FFFFFF"
+            android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_130sdp"
+            android:padding="@dimen/_15sdp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/test_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text="Thiroid Profile Test"
+                android:textStyle="bold"
+                android:textSize="@dimen/_15sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/test_inclusions"
+                android:fontFamily="sans-serif"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text="Inclusions  : T3, T4, TSH" />
+
+            <TextView
+                android:id="@+id/test_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:alpha=".7"
+                android:text="The test assesses the thyroid gland's functioning
+and can help diagnose hypothyroidism or hyperthyroidism."/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_height="2dp"
+            android:background="#ABFFFFFF"
+            android:layout_marginBottom="@dimen/_5sdp"
+            />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/_15sdp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <!-- TextViews for price details -->
+                    <TextView
+                        android:id="@+id/test_mrp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₹399"
+                        android:textColor="#999999"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/test_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₹299"
+                        android:textSize="@dimen/_15sdp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <Button
+
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="ADD TO CART"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</LinearLayout>

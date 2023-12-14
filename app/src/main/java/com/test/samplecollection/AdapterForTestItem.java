@@ -1,5 +1,6 @@
 package com.test.samplecollection;
 
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ public class AdapterForTestItem extends RecyclerView.Adapter<AdapterForTestItem.
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.test_tems, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.test_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -44,24 +45,53 @@ public class AdapterForTestItem extends RecyclerView.Adapter<AdapterForTestItem.
 
         public TextView textViewInclusion;
         public TextView textViewMrp;
+        public String Inclusion="Inclusion : ";
+        public String testInclusion=" Test";
+        public  int Inclusions;
+        public String totalInclusion;
+        public String rupeeSign ="₹ ";
+
+        public String fetchprice;
+        public String price;
+
+        public String fetchmrp;
+        public String mrp;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
             textViewName = itemView.findViewById(R.id.test_name);
+
             textViewPrice = itemView.findViewById(R.id.test_price);
             textViewDescription = itemView.findViewById(R.id.test_description);
-            textViewInclusion = itemView.findViewById(R.id.test_inclusions);
             textViewMrp = itemView.findViewById(R.id.test_mrp);
+            textViewInclusion = itemView.findViewById(R.id.test_inclusions);
+
 
 
         }
 
         public void bind(Test test) {
             textViewName.setText(test.getName());
-            textViewPrice.setText(String.valueOf(test.getPrice()));
+
+            fetchprice = String.valueOf(test.getPrice());
+            price = rupeeSign+ fetchprice;
+            textViewPrice.setText(price);
+
+
+
+            fetchmrp = String.valueOf(test.getMrp());
+            mrp = rupeeSign+ fetchmrp;
+            textViewPrice.setText(mrp);
+
+
+            textViewMrp.setPaintFlags(textViewPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+
             textViewDescription.setText(test.getDescription());
-            textViewInclusion.setText(test.getInclusions());
-            textViewMrp.setText(String.valueOf(test.getMrp()));
+            Inclusions= test.getInclusions();
+            totalInclusion = Inclusion + Inclusions + testInclusion;
+            textViewInclusion.setText(totalInclusion);
         }
     }
 }
