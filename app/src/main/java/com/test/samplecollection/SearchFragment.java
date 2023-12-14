@@ -1,45 +1,40 @@
 package com.test.samplecollection;
 
-import static androidx.fragment.app.FragmentManager.TAG;
-
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.test.samplecollection.TestInfo;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements AdapterTag.TagClickListener{
 
     ArrayList<Test> testsList;
     HashSet<String> tagList;
+    HashSet<String> selectedTagList;
+
+    androidx.appcompat.widget.SearchView searchView;
     private static final String TAG = "SearchFragment";
 
     AdapterForTestItem adapterForTestItem;
     AdapterTag adapterTag;
+
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
@@ -54,11 +49,15 @@ public class SearchFragment extends Fragment {
         recyclerView.setAdapter(adapterForTestItem);
 
 
+        selectedTagList = new HashSet<>();
         RecyclerView recyclerViewTag = view.findViewById(R.id.recycler_tag);
         recyclerViewTag.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         tagList = new HashSet<>();
         adapterTag = new AdapterTag(tagList);
+
         recyclerViewTag.setAdapter(adapterTag);
+        adapterTag.setTagClickListener(this); // Set the listener in SearchFragment
+
 
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -97,7 +96,86 @@ public class SearchFragment extends Fragment {
                 });
 
 
+
+
+
+
+        searchView = view.findViewById(R.id.search_bar);
+        searchView.clearFocus();
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Called when the user submits the query (e.g., presses "Enter" on the keyboard)
+                // Perform actions if needed
+                searchView.clearFocus();// Assuming adapterForTestItem is your RecyclerView adapter
+                return false; // Return true to indicate that the query has been handled
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Called when the query text changes (i.e., user types/deletes characters)
+                // Update the filtered results in your RecyclerView here
+                filterList(newText,selectedTagList);// Assuming adapterForTestItem is your RecyclerView adapter
+                return true; // Return true to indicate that the query has been handled
+            }
+        });
+
+
+
         return view;
+    }
+    private void filterList(String newText, HashSet<String> selectedTags) {
+        List<Test> filteredList = new ArrayList<>();
+
+        if (newText.isEmpty() && selectedTags.isEmpty()) {
+            // If both search query and tags are empty, show the entire original list
+            adapterForTestItem.setFilteredLlist(testsList);
+
+        } else {
+            // Filter the list based on the query and selected tags
+            for (Test test : testsList) {
+                boolean matchesQuery = test.getName().toLowerCase().contains(newText.toLowerCase());
+
+                // Check if the test has any of the selected tags
+                boolean matchesTags = false;
+                for (String tag : selectedTags) {
+                    if (test.getTag().contains(tag)) {
+                        matchesTags = true;
+                        break;
+                    }
+                }
+
+                // Include the test in the filtered list if it matches the query or selected tags
+                if ((matchesQuery || newText.isEmpty()) && (matchesTags || selectedTags.isEmpty())) {
+                    filteredList.add(test);
+                }
+            }
+
+            if (filteredList.isEmpty()) {
+                // Display a message or handle an empty list scenario
+                // For example, show "No Test Found" message in the SearchView
+                searchView.setQuery("No Test Found", false);
+                searchView.clearFocus();
+            } else {
+                // Show the filtered list in the RecyclerView
+                adapterForTestItem.setFilteredLlist(filteredList);
+            }
+        }
+    }
+
+    @Override
+    public void onTagClicked(String tag) {
+        // Add or remove the clicked tag from the selected tag list
+        if (selectedTagList.contains(tag)) {
+            selectedTagList.remove(tag); // Deselect tag
+        } else {
+            selectedTagList.add(tag); // Select tag
+        }
+
+        // Update the filtered list based on the selected tags
+        filterList(searchView.getQuery().toString(), selectedTagList);
     }
 }
 

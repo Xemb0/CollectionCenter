@@ -13,10 +13,26 @@ import java.util.List;
 
 public class AdapterForTestItem extends RecyclerView.Adapter<AdapterForTestItem.ViewHolder> {
     private List<Test> tests;
+    public List<Test> filteredList;
 
     public AdapterForTestItem(List<Test> tests) {
         this.tests = tests;
     }
+
+    public void setFilteredLlist(List<Test> filteredList) {
+        this.filteredList = filteredList;
+        notifyDataSetChanged();
+    }
+
+    public void updateFilteredList(List<Test> updatedList) {
+        this.filteredList = updatedList;
+        notifyDataSetChanged();
+    }
+
+
+
+
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -24,19 +40,22 @@ public class AdapterForTestItem extends RecyclerView.Adapter<AdapterForTestItem.
         return new ViewHolder(view);
     }
 
+
+
+    @Override
+    public int getItemCount() {
+        return filteredList != null ? filteredList.size() : tests.size();
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Test currentTest = tests.get(position);
+        Test currentTest = filteredList != null ? filteredList.get(position) : tests.get(position);
         holder.bind(currentTest);
     }
 
 
 
 
-    @Override
-    public int getItemCount() {
-        return tests.size();
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewName;

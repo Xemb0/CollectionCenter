@@ -6,6 +6,7 @@
     android:background="#DDDDDD"
     android:orientation="vertical"
     android:layout_height="wrap_content">
+    <include layout="@layout/header" />
 
 
               <androidx.recyclerview.widget.RecyclerView

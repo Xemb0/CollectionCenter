@@ -7,9 +7,10 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_200sdp"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp"
         android:background="#FFFFFF"
+        android:elevation="@dimen/_5sdp"
         app:cardUseCompatPadding="true"
         app:cardCornerRadius="@dimen/_10sdp">
 
@@ -23,8 +24,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_130sdp"
-            android:padding="@dimen/_15sdp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_13sdp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/test_name"
@@ -32,9 +33,9 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:layout_marginBottom="@dimen/_10sdp"
-                android:text="Thiroid Profile Test"
+                android:text="Kideny Function Test With Calcium"
                 android:textStyle="bold"
-                android:textSize="@dimen/_15sdp" />
+                android:textSize="@dimen/_14sdp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -66,7 +67,7 @@ and can help diagnose hypothyroidism or hyperthyroidism."/>
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:paddingHorizontal="@dimen/_15sdp"
+                android:padding="@dimen/_13sdp"
                 android:orientation="horizontal">
 
                 <LinearLayout

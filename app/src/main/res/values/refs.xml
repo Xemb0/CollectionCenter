@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <drawable name="selected_tag_bg_green">#4CAF50</drawable>
+    <drawable name="normal_tag_bg">#673AB7</drawable>
+</resources>
