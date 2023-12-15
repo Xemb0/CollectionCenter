@@ -1,11 +1,9 @@
 package com.test.samplecollection;
-
 import android.graphics.Paint;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
+import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -13,13 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class AdapterForTestItem extends RecyclerView.Adapter<AdapterForTestItem.ViewHolder> {
+// The adapter class which
+// extends RecyclerView Adapter
+public class AdapterPopularTest
+        extends RecyclerView.Adapter<AdapterPopularTest.MyView> {
+
     private List<Test> tests;
     public List<Test> filteredList;
-
-    public AdapterForTestItem(List<Test> tests) {
+    public AdapterPopularTest(List<Test> tests) {
         this.tests = tests;
     }
+
+
 
     public void setFilteredLlist(List<Test> filteredList) {
         this.filteredList = filteredList;
@@ -33,9 +36,9 @@ public class AdapterForTestItem extends RecyclerView.Adapter<AdapterForTestItem.
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.test_item, parent, false);
-        return new ViewHolder(view);
+    public MyView onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_popular_test, parent, false);
+        return new MyView(view);
     }
 
     @Override
@@ -44,23 +47,28 @@ public class AdapterForTestItem extends RecyclerView.Adapter<AdapterForTestItem.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyView holder, int position) {
         Test currentTest = filteredList != null ? filteredList.get(position) : tests.get(position);
         holder.bind(currentTest);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    // View Holder class which
+    // extends RecyclerView.ViewHolder
+    public class MyView
+
+            extends RecyclerView.ViewHolder {
+
         public TextView textViewName;
         public TextView textViewPrice;
         public TextView textViewDescription;
 
         public TextView textViewInclusion;
         public TextView textViewMrp;
-        public String Inclusion="Inclusion : ";
-        public String testInclusion=" Test";
-        public  int Inclusions;
+        public String Inclusion = "Inclusion : ";
+        public String testInclusion = " Test";
+        public int Inclusions;
         public String totalInclusion;
-        public String rupeeSign ="₹ ";
+        public String rupeeSign = "₹ ";
 
         public String fetchprice;
         public String price;
@@ -69,15 +77,14 @@ public class AdapterForTestItem extends RecyclerView.Adapter<AdapterForTestItem.
         public String mrp;
 
 
-        public ViewHolder(View itemView) {
+        public MyView(View itemView) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.test_name);
+            textViewName = itemView.findViewById(R.id.popular_test_name);
 
-            textViewPrice = itemView.findViewById(R.id.test_price);
-            textViewDescription = itemView.findViewById(R.id.test_description);
-            textViewMrp = itemView.findViewById(R.id.test_mrp);
-            textViewInclusion = itemView.findViewById(R.id.test_inclusions);
-
+            textViewPrice = itemView.findViewById(R.id.popular_test_price);
+            textViewDescription = itemView.findViewById(R.id.popular_test_description);
+            textViewMrp = itemView.findViewById(R.id.popular_test_mrp);
+            textViewInclusion = itemView.findViewById(R.id.popular_test_inclusions);
 
 
         }
@@ -86,13 +93,12 @@ public class AdapterForTestItem extends RecyclerView.Adapter<AdapterForTestItem.
             textViewName.setText(test.getName());
 
             fetchprice = String.valueOf(test.getPrice());
-            price = rupeeSign+ fetchprice;
+            price = rupeeSign + fetchprice;
             textViewPrice.setText(price);
 
 
-
             fetchmrp = String.valueOf(test.getMrp());
-            mrp = rupeeSign+ fetchmrp;
+            mrp = rupeeSign + fetchmrp;
             textViewPrice.setText(mrp);
 
 
@@ -100,13 +106,12 @@ public class AdapterForTestItem extends RecyclerView.Adapter<AdapterForTestItem.
 
 
             textViewDescription.setText(test.getDescription());
-            Inclusions= test.getInclusions();
+            Inclusions = test.getInclusions();
             totalInclusion = Inclusion + Inclusions + testInclusion;
             textViewInclusion.setText(totalInclusion);
 
 
-
-            itemView.findViewById(R.id.btn_add_to_cart).setOnClickListener(v -> {
+            itemView.findViewById(R.id.popular_btn_add_to_cart).setOnClickListener(v -> {
                 if (test.isAddedToCart()) {
                     test.setAddedToCart(false);
                     // Update UI for deselection

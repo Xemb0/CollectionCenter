@@ -11,10 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
-import com.test.samplecollection.HomeFragment;
-import com.test.samplecollection.MyPagerAdapter;
-import com.test.samplecollection.SearchFragment;
-import com.test.samplecollection.UserFragment;
 
 import java.util.ArrayList;
 
@@ -31,9 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Layout Manager
     RecyclerView.LayoutManager RecyclerViewLayoutManager;
-
-    // adapter class object
-    ScrollView_Adapter adapter;
 
     // Linear Layout Manager
     LinearLayoutManager HorizontalLayout;

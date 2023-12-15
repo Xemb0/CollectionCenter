@@ -44,8 +44,6 @@ public class SearchFragment extends Fragment implements AdapterTag.TagClickListe
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         testsList = new ArrayList<>();
         adapterForTestItem = new AdapterForTestItem(testsList);
-
-
         recyclerView.setAdapter(adapterForTestItem);
 
 

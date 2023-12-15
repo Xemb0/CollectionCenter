@@ -1,15 +1,14 @@
 package com.test.samplecollection;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -27,9 +26,14 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.test.samplecollection.kotlin.LoginActivity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 
 
 public class HomeFragment extends Fragment implements CitySelectListener {
@@ -40,99 +44,61 @@ public class HomeFragment extends Fragment implements CitySelectListener {
     private ConstraintLayout root;
     private ImageSlider imageSlider;
     private Handler handler;
-    private RecyclerView HorizontalRv;
+    private RecyclerView recyclerImageSlider;
     private LinearLayoutManager linearLayoutManager;
-    private HorizontallAdaptor horizontallAdaptor;
+    private AdapterImageSlider horizontallAdaptor;
     // Recycler View object
-    RecyclerView recyclerView;
+    RecyclerView recyclerViewPopularTest;
 
     // Array list for recycler view data source
-    ArrayList<String> source;
+    ArrayList<String> popularTestArrayList;
 
     // Layout Manager
-    RecyclerView.LayoutManager RecyclerViewLayoutManager;
+
 
     // adapter class object
-    ScrollView_Adapter adapter;
-
-    // Linear Layout Manager
     LinearLayoutManager HorizontalLayout;
     Button cityselectbutton;
-     ImageView userButton;
+     ImageView loginUserButton;
 
     FirebaseAuth firebaseAuth;
-    ImageView  ivImage;
 
+
+    ArrayList<Test> testsList;
+    HashSet<String> tagList;
+    private static final String TAG = "SearchFragment";
+
+    AdapterPopularTest adapterForPopularTest;
+    AdapterTag adapterTag;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        init(view);
+        ImageSlider(view);
         setUpTransformer();
+        PopularTestScrollView(view);
+        CitySelect(view);
+        LoginUserButton(view);
+        return view;
+    }
 
-        // initialisation with id's
-        recyclerView = view.findViewById(R.id.recyclerview);
-        cityselectbutton = view.findViewById(R.id.select_city);
-        RecyclerViewLayoutManager = new LinearLayoutManager(requireContext());
-
-        // Set LayoutManager on Recycler View
-        recyclerView.setLayoutManager(RecyclerViewLayoutManager);
-
-        // Adding items to RecyclerView.
-        AddItemsToRecyclerViewArrayList();
-
-        // calling constructor of adapter
-        // with source list as a parameter
-        adapter = new ScrollView_Adapter(source);
-
-        // Set Horizontal Layout Manager
-        // for Recycler view
-        HorizontalLayout = new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(HorizontalLayout);
-
-        // Set adapter on recycler view
-        recyclerView.setAdapter(adapter);
-
-        HorizontalRv = view.findViewById(R.id.horizontalRv);
-        // Use the `linearLayoutManager` to set the layout manager for your `HorizontalRv`.
-        HorizontalRv.setLayoutManager(linearLayoutManager);
-        horizontallAdaptor = new HorizontallAdaptor(imageList);
-
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                handler.removeCallbacks(runnable);
-                handler.postDelayed(runnable, 2000);
-            }
-        });
-
-        cityselectbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CitySelectBottomSheet bottomSheetFragment = new CitySelectBottomSheet(HomeFragment.this);
-                bottomSheetFragment.show(requireActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
-            }
-        });
-
-        userButton = view.findViewById(R.id.userButton);
-
+    private void LoginUserButton(View view) {
+        loginUserButton = view.findViewById(R.id.userButton);
 
         // Initialize Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         if (firebaseUser != null) {
-            // Load user's photo into an ImageView in a circular shape
 
-                Glide.with(this)
-                        .load(firebaseUser.getPhotoUrl())
-                        .circleCrop() // Apply circular crop transformation
-                        .into(userButton);
+            Glide.with(this)
+                    .load(firebaseUser.getPhotoUrl())
+                    .circleCrop() // Apply circular crop transformation
+                    .into(loginUserButton);
 
 
-            userButton.setOnClickListener(new View.OnClickListener() {
+            loginUserButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getActivity(), "yess", Toast.LENGTH_SHORT).show();
@@ -141,7 +107,7 @@ public class HomeFragment extends Fragment implements CitySelectListener {
 
         }else
         {
-            userButton.setOnClickListener(new View.OnClickListener() {
+            loginUserButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -151,6 +117,70 @@ public class HomeFragment extends Fragment implements CitySelectListener {
 
         }
 
+    }
+
+    private void CitySelect(View view) {
+        cityselectbutton = view.findViewById(R.id.select_city);
+        cityselectbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CitySelectBottomSheet bottomSheetFragment = new CitySelectBottomSheet(HomeFragment.this);
+                bottomSheetFragment.show(requireActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
+            }
+        });
+    }
+
+    @Override
+    public void onCitySelected(String selectedCity) {
+        cityselectbutton.setText(selectedCity);
+    }
+
+
+    private void PopularTestScrollView(View view) {
+
+
+
+
+
+        recyclerViewPopularTest = view.findViewById(R.id.recyclerview_popular_test);
+        LinearLayoutManager popularTestLayoutManager = new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewPopularTest.setLayoutManager(popularTestLayoutManager);
+        testsList = new ArrayList<>();
+        adapterForPopularTest = new AdapterPopularTest(testsList);
+        recyclerViewPopularTest.setAdapter(adapterForPopularTest);
+
+
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("PopularTests")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                    for (DocumentSnapshot document : list) {
+                        String name = document.getString("NAME");
+                        int price = Objects.requireNonNull(document.getLong("PRICE")).intValue();
+                        String description = document.getString("DESCRIPTION");
+                        int mrp = Objects.requireNonNull(document.getLong("MRP")).intValue();
+                        int inclusions = Objects.requireNonNull(document.getLong("INCLUSIONS")).intValue();
+                        String tag = document.getString("CATEGORY");
+
+
+                        Test test = new Test(name, price, description, mrp, inclusions, tag);
+
+                        testsList.add(test);
+
+                        // Log retrieved data for verification
+                        Log.d(TAG, "Test Name: " + name + ", Price: " + price + ", Description: " + description + ", MRP: " + mrp + ", Inclusions: " + inclusions);
+
+                    }
+                    adapterForPopularTest.notifyDataSetChanged();
+
+
+                })
+                .addOnFailureListener(e -> {
+                    // Log failure message
+                    Log.e(TAG, "Error getting documents: ", e);
+                });
 
 
 
@@ -158,7 +188,52 @@ public class HomeFragment extends Fragment implements CitySelectListener {
 
 
 
-        return view;
+    }
+
+
+
+
+
+    private void ImageSlider(View view) {
+        recyclerImageSlider = view.findViewById(R.id.recycler_image_slider);
+        recyclerImageSlider.setLayoutManager(linearLayoutManager);
+        horizontallAdaptor = new AdapterImageSlider(imageList);
+
+        viewPager = view.findViewById(R.id.viewimage);
+        handler = new Handler(Looper.getMainLooper());
+        imageList = new ArrayList<>();
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                handler.removeCallbacks(runnable);
+                handler.postDelayed(runnable, 2000);
+            }
+        });
+
+        imageList.add(R.drawable.image1);
+        imageList.add(R.drawable.image2);
+        imageList.add(R.drawable.image3);
+        imageList.add(R.drawable.image4);
+        imageList.add(R.drawable.image5);
+
+        imageSlider = new ImageSlider(imageList, viewPager);
+        viewPager.setAdapter(imageSlider);
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.setClipToPadding(false);
+        viewPager.setClipChildren(false);
+        viewPager.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+    }
+
+    private void setUpTransformer() {
+        CompositePageTransformer transformer = new CompositePageTransformer();
+        transformer.addTransformer(new MarginPageTransformer(40));
+        transformer.addTransformer((page, position) -> {
+            float r = 1 - Math.abs(position);
+            page.setScaleY(0.85f + r * 0.14f);
+        });
+
+        viewPager.setPageTransformer(transformer);
     }
 
     @Override
@@ -180,96 +255,9 @@ public class HomeFragment extends Fragment implements CitySelectListener {
         }
     };
 
-    private void setUpTransformer() {
-        CompositePageTransformer transformer = new CompositePageTransformer();
-        transformer.addTransformer(new MarginPageTransformer(40));
-        transformer.addTransformer((page, position) -> {
-            float r = 1 - Math.abs(position);
-            page.setScaleY(0.85f + r * 0.14f);
-        });
-
-        viewPager.setPageTransformer(transformer);
-    }
-
-    private void init(View view) {
-        viewPager = view.findViewById(R.id.viewimage);
-        handler = new Handler(Looper.getMainLooper());
-        imageList = new ArrayList<>();
-
-        imageList.add(R.drawable.image1);
-        imageList.add(R.drawable.image2);
-        imageList.add(R.drawable.image3);
-        imageList.add(R.drawable.image4);
-        imageList.add(R.drawable.image5);
-
-        imageSlider = new ImageSlider(imageList, viewPager);
-        viewPager.setAdapter(imageSlider);
-        viewPager.setOffscreenPageLimit(3);
-        viewPager.setClipToPadding(false);
-        viewPager.setClipChildren(false);
-        viewPager.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
-    }
-
-    class HorizontallAdaptor extends RecyclerView.Adapter<HorizontallAdaptor.HorizontalHolder> {
-        ArrayList<Integer> image;
-
-        public HorizontallAdaptor(ArrayList<Integer> image) {
-            this.image = image;
-        }
-
-        @NonNull
-        @Override
-        public HorizontallAdaptor.HorizontalHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.horizontal_item, parent, false);
-            return new HorizontalHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull HorizontalHolder horizontallAdaptor, int position) {
-            horizontallAdaptor.horizontalImage.setImageResource(image.get(position));
-        }
-
-        @Override
-        public int getItemCount() {
-            return image.size();
-        }
-
-        class HorizontalHolder extends RecyclerView.ViewHolder {
-            ImageView horizontalImage;
-
-            public HorizontalHolder(@NonNull View itemView) {
-                super(itemView);
-                horizontalImage = itemView.findViewById(R.id.horizontal_image);
-            }
-        }
-    }
 
 
 
-    public void AddItemsToRecyclerViewArrayList()
-    {
-        // Adding items to ArrayList
-        source = new ArrayList<>();
-        source.add("gfg");
-        source.add("is");
-        source.add("best");
-        source.add("site");
-        source.add("for");
-        source.add("interview");
-        source.add("preparation");
-    }
-
-    @Override
-    public void onCitySelected(String selectedCity) {
-        // Handle the selected city here
-        // For example, update the UI with the selected city
-        cityselectbutton.setText(selectedCity);
-    }
 
 
-
-    // Method to load user's photo into ImageView
-
-
-    // ... (Add the rest of your code)
 }

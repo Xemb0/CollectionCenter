@@ -64,23 +64,21 @@
   </androidx.constraintlayout.widget.ConstraintLayout>
 
   <!-- ScrollView layout -->
-  <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+<androidx.recyclerview.widget.RecyclerView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/recyclerview_popular_test">
 
-   <!-- Your ScrollView content goes here -->
-   <!-- Add more content as needed -->
+</androidx.recyclerview.widget.RecyclerView>
 
-  </ScrollView>
   <androidx.cardview.widget.CardView
       android:layout_width="match_parent"
       android:layout_height="200dp"
       android:id="@+id/test_6"
       android:layout_margin="15dp"/>
 
-  <!-- Included HorizontalScrollView layout -->
-  <include layout="@layout/scrollview" />
-<!--  <include layout="@layout/scrollview" />-->
+
   <include layout="@layout/horizontal_scroll" />
   <androidx.cardview.widget.CardView
       android:layout_width="match_parent"

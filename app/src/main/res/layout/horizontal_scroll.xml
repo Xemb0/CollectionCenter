@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
-        android:id="@+id/horizontalRv"
+        android:id="@+id/recycler_image_slider"
         android:layout_height="wrap_content">
 
     </androidx.recyclerview.widget.RecyclerView>
