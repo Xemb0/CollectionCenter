@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -60,7 +61,7 @@ public class HomeFragment extends Fragment implements CitySelectListener ,OnTouc
 
     // adapter class object
     LinearLayoutManager HorizontalLayout;
-    Button cityselectbutton;
+    View cityselectlayout;
      ImageView loginUserButton;
 
     FirebaseAuth firebaseAuth;
@@ -68,6 +69,7 @@ public class HomeFragment extends Fragment implements CitySelectListener ,OnTouc
 
     ArrayList<Test> testsList;
     HashSet<String> tagList;
+    TextView cityselectText;
     private static final String TAG = "SearchFragment";
 
     AdapterPopularTest adapterForPopularTest;
@@ -122,8 +124,9 @@ public class HomeFragment extends Fragment implements CitySelectListener ,OnTouc
     }
 
     private void CitySelect(View view) {
-        cityselectbutton = view.findViewById(R.id.select_city);
-        cityselectbutton.setOnClickListener(new View.OnClickListener() {
+        cityselectlayout = view.findViewById(R.id.locationLayout);
+         cityselectText = view.findViewById(R.id.select_city);
+        cityselectlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CitySelectBottomSheet bottomSheetFragment = new CitySelectBottomSheet(HomeFragment.this);
@@ -134,7 +137,7 @@ public class HomeFragment extends Fragment implements CitySelectListener ,OnTouc
 
     @Override
     public void onCitySelected(String selectedCity) {
-        cityselectbutton.setText(selectedCity);
+        cityselectText.setText(selectedCity);
     }
 
 
@@ -151,8 +154,6 @@ public class HomeFragment extends Fragment implements CitySelectListener ,OnTouc
         testsList = new ArrayList<>();
         adapterForPopularTest = new AdapterPopularTest(testsList,this);
         recyclerViewPopularTest.setAdapter(adapterForPopularTest);
-
-
         AtomicReference<Float> startX = new AtomicReference<>((float) 0);
         AtomicReference<Float> startY = new AtomicReference<>((float) 0);
 

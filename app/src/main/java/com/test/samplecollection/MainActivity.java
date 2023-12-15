@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set up ViewPager2 with a custom adapter
         viewPager.setAdapter(new MyPagerAdapter(this));
+        viewPager.setOffscreenPageLimit(3);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
