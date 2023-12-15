@@ -1,11 +1,13 @@
 package com.test.samplecollection;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,9 +35,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 
-public class HomeFragment extends Fragment implements CitySelectListener {
+public class HomeFragment extends Fragment implements CitySelectListener ,OnTouchListener{
     private ViewPager2 viewPager;
     private ArrayList<Integer> imageList;
 
@@ -136,6 +138,7 @@ public class HomeFragment extends Fragment implements CitySelectListener {
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     private void PopularTestScrollView(View view) {
 
 
@@ -146,8 +149,46 @@ public class HomeFragment extends Fragment implements CitySelectListener {
         LinearLayoutManager popularTestLayoutManager = new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewPopularTest.setLayoutManager(popularTestLayoutManager);
         testsList = new ArrayList<>();
-        adapterForPopularTest = new AdapterPopularTest(testsList);
+        adapterForPopularTest = new AdapterPopularTest(testsList,this);
         recyclerViewPopularTest.setAdapter(adapterForPopularTest);
+
+
+        AtomicReference<Float> startX = new AtomicReference<>((float) 0);
+        AtomicReference<Float> startY = new AtomicReference<>((float) 0);
+
+// Set touch listener for the RecyclerView
+        recyclerViewPopularTest.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    // Store the initial touch X coordinate
+                    startX.set(event.getX());
+                    startY.set(event.getY());
+                    // Disable touch events for other views initially
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    // Calculate the distance moved in X and Y directions
+                    float distanceX = Math.abs(event.getX() - startX.get());
+                    float distanceY = Math.abs(event.getY() - startY.get());
+
+                    // Check if the distance moved horizontally is greater than vertically
+                    if (distanceX > distanceY) {
+                        // Disable touch events for other views if the horizontal movement is larger
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                    } else {
+                        // Allow touch events for other views if the vertical movement is larger
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                    }
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    // Enable touch events for other views
+                    v.getParent().requestDisallowInterceptTouchEvent(false);
+                    break;
+            }
+            return false;
+        });
+
 
 
 
@@ -256,8 +297,8 @@ public class HomeFragment extends Fragment implements CitySelectListener {
     };
 
 
-
-
-
-
+    @Override
+    public void onTouch() {
+        viewPager.setUserInputEnabled(false);
+    }
 }

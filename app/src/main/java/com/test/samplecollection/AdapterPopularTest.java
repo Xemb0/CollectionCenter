@@ -1,5 +1,7 @@
 package com.test.samplecollection;
+import android.annotation.SuppressLint;
 import android.graphics.Paint;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -18,11 +20,12 @@ public class AdapterPopularTest
 
     private List<Test> tests;
     public List<Test> filteredList;
-    public AdapterPopularTest(List<Test> tests) {
+    private OnTouchListener onTouchListener;
+
+    public AdapterPopularTest(List<Test> tests, OnTouchListener onTouchListener) {
         this.tests = tests;
+        this.onTouchListener = onTouchListener;
     }
-
-
 
     public void setFilteredLlist(List<Test> filteredList) {
         this.filteredList = filteredList;
@@ -34,11 +37,16 @@ public class AdapterPopularTest
         notifyDataSetChanged();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @NonNull
     @Override
     public MyView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_popular_test, parent, false);
+
+
         return new MyView(view);
+
+
     }
 
     @Override
@@ -46,13 +54,21 @@ public class AdapterPopularTest
         return filteredList != null ? filteredList.size() : tests.size();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onBindViewHolder(@NonNull MyView holder, int position) {
         Test currentTest = filteredList != null ? filteredList.get(position) : tests.get(position);
         holder.bind(currentTest);
+        holder.itemView.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN||event.getAction()==MotionEvent.ACTION_UP) {
+                onTouchListener.onTouch(); // Notify the touch event
+            }
+            return false;
+        });
+
     }
 
-    // View Holder class which
+        // View Holder class which
     // extends RecyclerView.ViewHolder
     public class MyView
 
