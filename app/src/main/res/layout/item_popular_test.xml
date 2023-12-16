@@ -3,6 +3,7 @@
     android:layout_width="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="start"
+
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
@@ -18,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:background="#00FFFFFF"
+            android:background="@color/white"
+
             android:orientation="vertical">
 
 
@@ -32,6 +34,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
+                    android:textColor="@color/my_primary"
+                    android:alpha=".9"
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:text="Kideny Function Test With Calcium"
                     android:textStyle="bold"
@@ -42,6 +46,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/popular_test_inclusions"
                     android:fontFamily="sans-serif"
+                    android:textColor="@color/black"
+                    android:alpha=".8"
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:text="Inclusions  : T3, T4, TSH" />
 
@@ -51,6 +57,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
                     android:alpha=".7"
+                    android:textColor="@color/black"
                     android:text="The test assesses the thyroid gland's functioning
 and can help diagnose hypothyroidism or hyperthyroidism."/>
 
@@ -60,7 +67,7 @@ and can help diagnose hypothyroidism or hyperthyroidism."/>
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="@dimen/_15sdp"
                 android:layout_height="2dp"
-                android:background="#ABFFFFFF"
+                android:background="@color/my_primary"
                 android:layout_marginBottom="@dimen/_5sdp"
                 />
             <LinearLayout
@@ -83,7 +90,9 @@ and can help diagnose hypothyroidism or hyperthyroidism."/>
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="₹399"
-                        android:textColor="#999999"
+
+                        android:textColor="@color/black"
+                        android:alpha=".4"
                         android:textSize="@dimen/_10sdp"
                         android:textStyle="bold" />
 
@@ -91,6 +100,7 @@ and can help diagnose hypothyroidism or hyperthyroidism."/>
                         android:id="@+id/popular_test_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/my_primary"
                         android:text="₹299"
                         android:textSize="@dimen/_15sdp"
                         android:textStyle="bold" />

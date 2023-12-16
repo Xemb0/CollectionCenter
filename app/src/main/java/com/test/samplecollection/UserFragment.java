@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +46,7 @@ public class UserFragment extends Fragment {
         // Initialize Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        TextView loginbtn = view.findViewById(R.id.btnLogout);
+        LinearLayout loginbtn = view.findViewById(R.id.btn_login);
 
         if (firebaseUser != null) {
             String userDisplayName = firebaseUser.getDisplayName();
@@ -89,7 +90,8 @@ public class UserFragment extends Fragment {
     // Method to load user's photo into ImageView
     private void loadUserPhoto(View view, Uri photoUrl, String displayName) {
         ImageView ivImage = view.findViewById(R.id.ivProfilePhoto); // Replace with your ImageView ID
-        TextView logoutbtn = view.findViewById(R.id.btnLogout);
+        LinearLayout logoutbtn = view.findViewById(R.id.btn_login);
+        TextView logoutbtnText = view.findViewById(R.id.login_button_text);
 
         // Load image using Glide with center crop
         Glide.with(this)
@@ -111,7 +113,7 @@ public class UserFragment extends Fragment {
 
         TextView name = view.findViewById(R.id.tvName);
         name.setText(displayName);
-        logoutbtn.setText("Logout");
+        logoutbtnText.setText("Logout");
     }
 
     // Method to apply circular outline to an ImageView
