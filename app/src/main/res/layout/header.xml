@@ -72,8 +72,7 @@
             android:layout_margin="20dp"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
-            android:background="@drawable/circular_image"
-        android:src="@drawable/ic_user_nav"
+        android:src="@drawable/ic_user_3d"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -88,6 +87,7 @@
         android:layout_below="@+id/location"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="5dp"
+        android:textAppearance="@color/black"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"

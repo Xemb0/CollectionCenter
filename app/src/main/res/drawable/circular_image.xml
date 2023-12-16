@@ -1,5 +1,23 @@
-<!-- res/drawable/circular_image.xml -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#00000000" /> <!-- Set a background color for the circular image -->
-    <corners android:radius="100dp" /> <!-- This value should be half the width/height to make it circular -->
-</shape>
+<!-- res/drawable/circular_hole.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Rectangle background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" /> <!-- Background color -->
+        </shape>
+    </item>
+
+    <!-- Circular hole -->
+    <item android:top="10dp" android:bottom="10dp" android:left="10dp" android:right="10dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/my_primary" /> <!-- Transparent fill -->
+            <stroke
+                android:width="1dp"
+                android:color="#00000000" /> <!-- Transparent stroke -->
+            <size
+                android:width="50dp"
+                android:height="50dp" /> <!-- Adjust size of the hole -->
+        </shape>
+    </item>
+</layer-list>

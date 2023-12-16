@@ -1,11 +1,17 @@
 package com.test.samplecollection;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Outline;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -17,6 +23,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.test.samplecollection.R;
@@ -61,15 +69,6 @@ public class UserFragment extends Fragment {
             });
         }
 
-        // Find the ListView in your fragment_user layout
-        ListView listView = view.findViewById(R.id.listView);
-
-        // Generate random items for the ListView
-        ArrayList<String> itemList = generateRandomItems();
-
-        // Create an ArrayAdapter and set it to the ListView
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, itemList);
-        listView.setAdapter(adapter);
 
         return view;
     }
@@ -91,14 +90,58 @@ public class UserFragment extends Fragment {
     private void loadUserPhoto(View view, Uri photoUrl, String displayName) {
         ImageView ivImage = view.findViewById(R.id.ivProfilePhoto); // Replace with your ImageView ID
         TextView logoutbtn = view.findViewById(R.id.btnLogout);
+
+        // Load image using Glide with center crop
         Glide.with(this)
                 .load(photoUrl)
-                .circleCrop() // Apply circular crop transformation
-                .into(ivImage);
+                .centerCrop()
+                .into(new CustomTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        // Apply circular outline to the loaded image
+                        ivImage.setImageDrawable(resource); // Set the loaded image
+                        applyCircularOutline(ivImage); // Apply circular outline
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                        // Handle placeholder if needed
+                    }
+                });
+
         TextView name = view.findViewById(R.id.tvName);
         name.setText(displayName);
         logoutbtn.setText("Logout");
     }
+
+    // Method to apply circular outline to an ImageView
+    private void applyCircularOutline(ImageView imageView) {
+        if (imageView != null) {
+            // Apply circular outline using a custom shape drawable
+            int strokeWidth = 2; // Adjust the stroke width as needed
+            int strokeColor = Color.parseColor("#673AB7"); // Replace with desired outline color
+
+            GradientDrawable strokeDrawable = new GradientDrawable();
+            strokeDrawable.setShape(GradientDrawable.OVAL);
+            strokeDrawable.setStroke(strokeWidth, strokeColor);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                imageView.setClipToOutline(true);
+                imageView.setOutlineProvider(new ViewOutlineProvider() {
+                    @Override
+                    public void getOutline(View view, Outline outline) {
+                        int width = view.getWidth();
+                        int height = view.getHeight();
+                        outline.setOval(0, 0, width, height);
+                    }
+                });
+            } else {
+                // For devices below Lollipop, set background drawable to create the outline
+                imageView.setBackground(strokeDrawable);
+            }
+        }
+    }
+
 
     // Method to navigate to LoginActivity
     private void navigateToLogin() {

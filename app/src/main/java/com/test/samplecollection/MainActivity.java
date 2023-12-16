@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -73,10 +74,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupBottomNavigation() {
-        bottomNavigation.setBackgroundBottomColor(Color.parseColor("#9EB1A3FF"));
-        bottomNavigation.setDefaultIconColor(Color.parseColor("#FFFFFF"));
-        bottomNavigation.setCircleColor(Color.parseColor("#9EB1A3FF"));
-        bottomNavigation.setSelectedIconColor(Color.parseColor("#FFFFFF"));
+        int primary = ContextCompat.getColor(this, R.color.my_primary);
+        int secondary = ContextCompat.getColor(this, R.color.my_secondary);
+        int compliment = ContextCompat.getColor(this, R.color.my_tag_deselect);
+        int icons = ContextCompat.getColor(this, R.color.white);
+        bottomNavigation.setBackgroundBottomColor(primary);
+        bottomNavigation.setDefaultIconColor(icons);
+        bottomNavigation.setSelectedIconColor(icons);
+        bottomNavigation.setCircleColor(primary);
 
 
         bottomNavigation.add(new MeowBottomNavigation.Model(0, R.drawable.ic_search_nav));

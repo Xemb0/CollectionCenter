@@ -10,9 +10,9 @@
 
 
 
-    <color name="my_primary">#5E35B1</color>
-    <color name="my_secondary">#673AB7</color>
-    <color name="my_tag_deselect">#673AB7</color>
+    <color name="my_primary">#1D6ED4</color>
+    <color name="my_secondary">#43C2EB</color>
+    <color name="my_tag_deselect">#1D6ED4</color>
     <color name="my_tag_select">#009688</color>
 
 </resources>

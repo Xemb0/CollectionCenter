@@ -13,6 +13,7 @@
      android:id="@+id/root_home"
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
+     android:background="@color/white"
      android:orientation="vertical">
   <LinearLayout
       android:id="@+id/Search_and_Header"

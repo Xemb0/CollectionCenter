@@ -18,7 +18,7 @@
 
 
 
-    android:background="#CCCCCC">
+    android:background="#FFFFFF">
 
 </androidx.viewpager2.widget.ViewPager2>
 
