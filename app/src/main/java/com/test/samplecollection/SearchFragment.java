@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class SearchFragment extends Fragment implements AdapterTag.TagClickListener{
 
@@ -59,43 +58,21 @@ public class SearchFragment extends Fragment implements AdapterTag.TagClickListe
         recyclerViewTag.setAdapter(adapterTag);
         adapterTag.setTagClickListener(this); // Set the listener in SearchFragment
 
-        AtomicReference<Float> startX = new AtomicReference<>((float) 0);
-        AtomicReference<Float> startY = new AtomicReference<>((float) 0);
 
 
-        recyclerViewTag.setOnTouchListener((v, event) -> {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    // Store the initial touch X coordinate
-                    startX.set(event.getX());
-                    startY.set(event.getY());
-                    // Disable touch events for other views initially
-                    v.getParent().requestDisallowInterceptTouchEvent(true);
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    // Calculate the distance moved in X and Y directions
-                    float distanceX = Math.abs(event.getX() - startX.get());
-                    float distanceY = Math.abs(event.getY() - startY.get());
 
-                    // Check if the distance moved horizontally is greater than vertically
-                    if (distanceX > distanceY) {
-                        // Disable touch events for other views if the horizontal movement is larger
-                        v.getParent().requestDisallowInterceptTouchEvent(true);
-                    } else {
-                        // Allow touch events for other views if the vertical movement is larger
-                        v.getParent().requestDisallowInterceptTouchEvent(false);
-                    }
-                    break;
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
-                    // Enable touch events for other views
-                    v.getParent().requestDisallowInterceptTouchEvent(false);
-                    break;
+        recyclerViewTag.setOnTouchListener((v, motionEvent) -> {
+            int action = motionEvent.getAction();
+            if (action == MotionEvent.ACTION_DOWN) {
+                // Disable touch events for other views
+                recyclerViewTag.getParent().requestDisallowInterceptTouchEvent(true);
+            } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
+                // Enable touch events for other views
+                recyclerViewTag.getParent().requestDisallowInterceptTouchEvent(true);
             }
+            // Return false to allow the ArcSeekBar to handle its own touch events
             return false;
         });
-
-
 
 
 

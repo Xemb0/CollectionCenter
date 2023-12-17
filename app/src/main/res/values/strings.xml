@@ -20,4 +20,6 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="web_client_id">1072591825541-ahog1ggs1fl47s24ae0j1rba0sad1668.apps.googleusercontent.com</string>
     <string name="default_web_client_id">1072591825541-rtb2g23p9nctm6n9rkadfhcud2c4ldra.apps.googleusercontent.com</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_settings2">SettingsActivity2</string>
 </resources>
