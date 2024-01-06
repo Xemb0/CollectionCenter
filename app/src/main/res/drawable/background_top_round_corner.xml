@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item  android:bottom="-100dp"> <!-- Adjust the value for the roundness -->
         <shape android:shape="rectangle">
-            <solid android:color="#00B1A3FF" /> <!-- Background color of the view -->
+            <solid android:color="#FFFFFF" /> <!-- Background color of the view -->
             <corners android:radius="18dp" /> <!-- Adjust the radius for rounded corners -->
         </shape>
     </item>
