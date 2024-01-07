@@ -74,8 +74,15 @@ public class TestInfo extends AppCompatActivity {
 
                         TextView textViewTestName = findViewById(R.id.details_test_name);
                         textViewTestName.setText(name);
+
+                        TextView textViewTestDiscription = findViewById(R.id.details_test_description);
+                        textViewTestDiscription.setText(description);
+
                         TextView textViewTestPrice = findViewById(R.id.details_test_price);
                         textViewTestPrice.setText(String.valueOf(price)); // Convert int to String
+
+                        TextView textViewTestInclusions = findViewById(R.id.detials_test_inclusions);
+                        textViewTestInclusions.setText(String.valueOf(inclusions)); // Convert int to String
 
                         // ...
 

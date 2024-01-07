@@ -10,18 +10,48 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_150sdp"
         android:scaleType="centerCrop"
-        android:src="@drawable/image1"
+        android:src="@drawable/bg_our_services"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
+    <TextView
+        android:id="@+id/details_test_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/curved_top"
+        app:layout_constraintHorizontal_bias="0.2"
+        android:text="ESR + TSR"
+        android:textSize="@dimen/_30sdp"
+        android:textStyle="bold"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/details_test_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="500rs"
+        app:layout_constraintHorizontal_bias=".9"
+        android:textStyle="bold"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/details_test_name" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/curved_corners_white"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,28 +70,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/details_test_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="ESR + TSR"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/details_test_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:text="500rs"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -77,7 +88,7 @@
             <ImageButton
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/rounded_button"
                 android:src="@drawable/ic_test_information" />
 
@@ -105,13 +116,35 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:text="discription"
-        android:id="@+id/details_test_discription"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_13sdp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+        <TextView
+            android:id="@+id/detials_test_inclusions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:alpha=".8"
+            android:fontFamily="sans-serif"
+            android:text="Inclusions  :"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/details_test_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha=".7"
+            android:fontFamily="sans-serif"
+            android:text="The test assesses the thyroid gland's functioning
+and can help diagnose hypothyroidism or hyperthyroidism."
+            android:textColor="@color/black" />
+
+    </LinearLayout>
 
 
 
