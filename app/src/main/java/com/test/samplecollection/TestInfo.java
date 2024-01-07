@@ -75,13 +75,32 @@ public class TestInfo extends AppCompatActivity {
                         TextView textViewTestName = findViewById(R.id.details_test_name);
                         textViewTestName.setText(name);
 
-                        TextView textViewTestDiscription = findViewById(R.id.details_test_description);
-                        textViewTestDiscription.setText(description);
+
+                        TextView textViewTestAgeDetails = findViewById(R.id.details_age_group);
+                        textViewTestAgeDetails.setText("All Ages");
+
+                        TextView textViewTestReportIn = findViewById(R.id.details_report_in);
+                        textViewTestReportIn.setText("12 Hrs");
+
+                        TextView textViewTestFasting = findViewById(R.id.details_fasting);
+                        textViewTestFasting.setText("Not Required");
+
+
+                        TextView textViewTestWhatfor = findViewById(R.id.details_test_description);
+                        textViewTestWhatfor.setText(description);
+
+
+                        TextView textViewTestBenifits = findViewById(R.id.details_benifits_discription);
+                        textViewTestBenifits.setText(description);
+
+
+                        TextView textViewTestIncludedTest = findViewById(R.id.details_included_test);
+                        textViewTestIncludedTest.setText(name + "("+ inclusions + ")");
 
                         TextView textViewTestPrice = findViewById(R.id.details_test_price);
                         textViewTestPrice.setText(String.valueOf(price)); // Convert int to String
 
-                        TextView textViewTestInclusions = findViewById(R.id.detials_test_inclusions);
+                        TextView textViewTestInclusions = findViewById(R.id.details_inclusions);
                         textViewTestInclusions.setText(String.valueOf(inclusions)); // Convert int to String
 
                         // ...
