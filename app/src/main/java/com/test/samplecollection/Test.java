@@ -5,6 +5,7 @@ public class Test {
     private int inclusions;
     private String name;
     private int price;
+    private String id;
     private String description;
 
     private String tag;
@@ -13,13 +14,14 @@ public class Test {
         // Default constructor required for Firestore
     }
 
-    public Test(String name, int price, String description,int mrp,int inclusions,String tag) {
+    public Test(String name, int price, String description,int mrp,int inclusions,String tag,String id) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.mrp = mrp;
         this.inclusions = inclusions;
         this.tag = tag;
+        this.id =id;
     }
 
     // Getters and setters for each field
@@ -30,6 +32,7 @@ public class Test {
     public void setName(String name) {
         this.name = name;
     }
+    public void setId(String id){this.id = id;}
 
     public int getPrice() {
         return price;
@@ -51,6 +54,11 @@ public class Test {
     public String getTag(){
         return tag;
     }
+    public String getId(){
+
+        return id;
+    }
+
 
     public void setDescription(String description) {
         this.description = description;

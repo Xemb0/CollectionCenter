@@ -1,109 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:id="@+id/user_fragment"
+    android:layout_width="wrap_content"
     android:orientation="vertical"
-    android:gravity="bottom"
-    android:background="@color/my_primary"
-    android:weightSum="100"
-    android:layout_height="match_parent">
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/user_fragment_btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"/>
+    android:layout_height="wrap_content">
 
-
-
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image1" />
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="90"
-        android:background="@drawable/curved_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:translationY="-50dp"
         android:orientation="vertical">
-        <include
-            android:id="@+id/toolbar"
-            android:layout_weight="1"
-            layout="@layout/user_fragment_user_icon"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"/>
-        <include
-            android:id="@+id/toolbar"
-            android:layout_weight="1"
-            layout="@layout/user_fragment_cart_download"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"/>
-        <include
-            android:id="@+id/toolbar"
-            android:layout_weight="1"
-            layout="@layout/user_fragment_options1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"/>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            app:cardCornerRadius="@dimen/_20sdp"
-            app:cardUseCompatPadding="true"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:background="@color/white"
-                android:padding="@dimen/_20sdp"
-                android:layout_height="match_parent">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:background="@color/white"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:scaleType="fitStart"
-                        android:src="@drawable/ic_report_24"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="4"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:fontFamily="sans-serif"
-                        android:textSize="@dimen/_15sdp"
-                        android:text="My Orders"/>
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-
-                        android:scaleType="fitEnd"
-                        android:src="@drawable/ic_arrow_right"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_20sdp"/>
-
-
-
-
-
-
-
-
 
     </LinearLayout>
+
+
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/test_details_info"
+        android:translationY="-50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 

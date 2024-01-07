@@ -202,17 +202,18 @@ public class HomeFragment extends Fragment implements CitySelectListener ,OnTouc
                         String name = document.getString("NAME");
                         int price = Objects.requireNonNull(document.getLong("PRICE")).intValue();
                         String description = document.getString("DESCRIPTION");
+                        String id = document.getString("S.No");
                         int mrp = Objects.requireNonNull(document.getLong("MRP")).intValue();
                         int inclusions = Objects.requireNonNull(document.getLong("INCLUSIONS")).intValue();
                         String tag = document.getString("CATEGORY");
 
 
-                        Test test = new Test(name, price, description, mrp, inclusions, tag);
+                        Test test = new Test(name, price, description, mrp, inclusions, tag,id);
 
                         testsList.add(test);
 
                         // Log retrieved data for verification
-                        Log.d(TAG, "Test Name: " + name + ", Price: " + price + ", Description: " + description + ", MRP: " + mrp + ", Inclusions: " + inclusions);
+                        Log.d(TAG, "Test Name: " + name + ", Price: " + price + ", Description: " + description + ", MRP: " + mrp + ", Inclusions: " + inclusions+"Id: "+id);
 
                     }
                     adapterForPopularTest.notifyDataSetChanged();

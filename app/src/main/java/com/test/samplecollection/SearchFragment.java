@@ -88,16 +88,18 @@ public class SearchFragment extends Fragment implements AdapterTag.TagClickListe
                         String description = document.getString("DESCRIPTION");
                         int mrp = Objects.requireNonNull(document.getLong("MRP")).intValue();
                         int inclusions = Objects.requireNonNull(document.getLong("INCLUSIONS")).intValue();
+
                         String tag = document.getString("CATEGORY");
+                        String id = document.getId();
 
 
-                        Test test = new Test(name, price, description, mrp, inclusions, tag);
+                        Test test = new Test(name, price, description, mrp, inclusions, tag,id);
 
                         testsList.add(test);
                         tagList.add(tag);
 
                         // Log retrieved data for verification
-                        Log.d(TAG, "Test Name: " + name + ", Price: " + price + ", Description: " + description + ", MRP: " + mrp + ", Inclusions: " + inclusions);
+                        Log.d(TAG, "Test Name: " + name + ", Price: " + price + ", Description: " + description + ", MRP: " + mrp + ", Inclusions: " + inclusions + "Id: "+id);
                         Log.d(TAG, "Tag: " + tag);
                     }
 

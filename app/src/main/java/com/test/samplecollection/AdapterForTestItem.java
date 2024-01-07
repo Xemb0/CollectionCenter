@@ -1,15 +1,20 @@
 package com.test.samplecollection;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -46,7 +51,8 @@ public class AdapterForTestItem extends RecyclerView.Adapter<AdapterForTestItem.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Test currentTest = filteredList != null ? filteredList.get(position) : tests.get(position);
-        holder.bind(currentTest);
+        holder.bind(currentTest,holder);
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -82,7 +88,7 @@ public class AdapterForTestItem extends RecyclerView.Adapter<AdapterForTestItem.
 
         }
 
-        public void bind(Test test) {
+        public void bind(Test test, ViewHolder holder) {
             textViewName.setText(test.getName());
 
             fetchprice = String.valueOf(test.getPrice());
@@ -117,6 +123,41 @@ public class AdapterForTestItem extends RecyclerView.Adapter<AdapterForTestItem.
                     v.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.my_tag_select));
                 }
             });
+
+            itemView.findViewById(R.id.test_cards).setOnClickListener(v -> {
+
+
+                // Apply a click animation
+                v.animate()
+                        .scaleX(0.95f)
+                        .scaleY(0.95f)
+                        .setDuration(100)
+                        .withEndAction(() -> {
+                            // Assuming you have a context available, replace it with your actual context
+                            Context context = v.getContext();
+
+                            // Create an Intent to start the new activity
+                            Intent intent = new Intent(context, TestInfo.class);
+
+                            // Pass data to the new activity if needed
+                             intent.putExtra("TestId", test.getId());
+                            String testName = test.getName();
+                            Toast.makeText(context, testName, Toast.LENGTH_SHORT).show();
+
+                            // Start the new activity
+                            context.startActivity(intent);
+
+                            // Reset the scale after the animation ends
+                            v.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .setDuration(100)
+                                    .start();
+                        })
+                        .start();
+            });
+
+
         }
     }
 }
